@@ -1,70 +1,113 @@
-require 'minitest/autorun'    # => true
-require 'minitest/pride'      # => true
-require_relative './deck.rb'  # => true
-require_relative './card.rb'  # => false
+require 'minitest/autorun'
+require 'minitest/pride'
+require_relative './deck.rb'
+require_relative './card.rb'
 
 class Blackjack
 
-FACECARDS = ["J", "Q", "K"]  # => ["J", "Q", "K"]
-
-  attr_accessor :deck          # => nil
-  attr_accessor :dealer_cards  # => nil
-  attr_accessor :player_cards  # => nil
-  attr_accessor :dealer_total  # => nil
-  attr_accessor :player_total  # => nil
+  attr_accessor :deck
+  attr_accessor :dealer_cards
+  attr_accessor :player_cards
+  attr_accessor :play
+  attr_accessor :move
 
   def initialize(deck)
     @deck = deck
-    @dealer_cards = []
-    @player_cards = []
-    @dealer_total = 0
-    @player_total = 0
-  end                   # => :initialize
+    @dealer_cards = [deck.play_card, deck.play_card]
+    @player_cards = [deck.play_card, deck.play_card]
+    @play = ""
+    @move = ""
+  end
 
-  def dealer_card
-    dealer_card = deck.play_card
-      if FACECARDS.include?(dealer_card.value)
-        dealer_card.value = 10
-      elsif dealer_card.value == "A"
-        dealer_card.value = 11
-      else
-        dealer_card.value
-      end
-    #dealer_cards << dealer_card.value           move array shovel somewhere else? also make method holing IF statement
-  end                                           # => :dealer_card
+  def greeting
+    puts "Welcome to blackjack! Would you like to play? (y/n)"
+    player_play_response
+  end
 
-  def player_card
-    player_card = deck.play_card
-      if FACECARDS.include?(player_card.value)
-        player_card.value = 10
-      elsif player_card.value == "A"
-        player_card.value = 11
-      else
-        player_card.value
-      end
-    #player_cards << dealer_card.value
-  end                                           # => :player_card
+  def check_if_new_game
+    puts "Would you like to play again?"
+    player_play_response
+  end
 
-  def dealer_total(dealer_cards)
+  def player_move
+    puts "What's your move? (hit/stand)"
+    player_move_response
+  end
+
+  def player_move_response
+    move = gets.chomp
+    until move.match("hit|stand")
+      puts "Sorry, try again"
+      move = gets.chomp
+    end
+    move
+  end
+
+  def player_play_response
+    play = gets.chomp
+    until play.match("y|n")
+      puts "Sorry, try again"
+      play = gets.chomp
+    end
+    play
+  end
+
+  def dealer_display_card
+    puts "Dealer's visible card is:"
+    puts "#{dealer_cards[1].value} of #{dealer_cards[1].suit}"
+  end
+
+  def dealer_display_all_cards
+    puts "Dealer's cards are:"
     dealer_cards.each do |card|
-      dealer_total += card.value
+      puts "#{card.value} of #{card.suit}"
     end
-  end                             # => :dealer_total
+  end
 
-  def player_total(player_cards)
+  def player_display_cards
+    puts "Your cards are:"
     player_cards.each do |card|
-      player_total += card.value
+      puts "#{card.value} of #{card.suit}"
     end
-  end                             # => :player_total
+  end
 
-end  # => :player_total
+  def dealer_draw_card
+    dealer_card = deck.play_card
+    puts "Dealer drew the #{dealer_card.value} of #{dealer_card.suit}"
+    dealer_cards << dealer_card
+  end
 
-# >> Run options: --seed 27302
-# >>
-# >> # Running:
-# >>
-# >>
-# >>
-# >> Finished in 0.000895s, 0.0000 runs/s, 0.0000 assertions/s.
-# >>
-# >> 0 runs, 0 assertions, 0 failures, 0 errors, 0 skips
+  def player_draw_card
+    player_card = deck.play_card
+    puts "You drew the #{player_card.value} of #{player_card.suit}"
+    player_cards << player_card
+  end
+
+  def display_dealer_total
+    puts "Dealer's total is: #{dealer_total}"
+  end
+
+  def display_player_total
+    puts "Your total is #{player_total}"
+  end
+
+  def dealer_total
+    dealer_cards.reduce(0) { |acc, card| acc + card.card_value }
+  end
+
+  def player_total
+    player_cards.reduce(0) { |acc, card| acc + card.card_value }
+  end
+
+  def player_wins
+    puts "You win!"
+  end
+
+  def dealer_wins
+    puts "You lose! Sorry!"
+  end
+
+  def tie
+    puts "It's a tie!"
+  end
+end
