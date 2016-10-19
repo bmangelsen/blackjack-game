@@ -14,8 +14,10 @@ class DeckTest < Minitest::Test
   end
 
   def test_play_card
-    game_deck = Deck.new
-    assert_equal game_deck.play_card != game_deck, true
+    deck = Deck.new
+    assert_equal deck.game_deck.size, 52
+    deck.play_card
+    assert_equal deck.game_deck.size, 51
   end
 
   def test_shuffle
@@ -23,6 +25,4 @@ class DeckTest < Minitest::Test
     game_deck_2 = Deck.new
     assert_equal game_deck_1 != game_deck_2, true
   end
-
-
 end
