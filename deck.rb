@@ -14,9 +14,6 @@ class Deck
         @game_deck << Card.new(value, suit)
       end
     end
-  end
-
-  def shuffle
     @game_deck = game_deck.shuffle
   end
 
