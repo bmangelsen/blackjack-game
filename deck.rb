@@ -20,5 +20,4 @@ class Deck
   def play_card
     game_deck.shift
   end
-
 end

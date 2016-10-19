@@ -21,5 +21,4 @@ class CardTest < Minitest::Test
     new_card = Card.new(6, "spades")
     assert_equal "spades", new_card.suit
   end
-
 end
