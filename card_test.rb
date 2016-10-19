@@ -12,14 +12,14 @@ class CardTest < Minitest::Test
     assert Card
   end
 
-  def test_value
-    new_card = Card.new(6, "spades")
-    assert_equal value = 6, new_card.value
+  def test_card_value
+    new_card = Card.new("A", "spades")
+    assert_equal 11, new_card.card_value
   end
 
   def test_suit
     new_card = Card.new(6, "spades")
-    assert_equal suit = "spades", new_card.suit
+    assert_equal "spades", new_card.suit
   end
 
 end
