@@ -23,6 +23,6 @@ class DeckTest < Minitest::Test
   def test_shuffle
     game_deck_1 = Deck.new
     game_deck_2 = Deck.new
-    assert_equal game_deck_1 != game_deck_2, true
+    assert_equal true, game_deck_1.play_card != game_deck_2.play_card
   end
 end
