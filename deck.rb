@@ -5,7 +5,7 @@ class Deck
   VALUE = (2..10).to_a + ["J", "Q", "K", "A"]
   SUIT = ["hearts", "spades", "clubs", "diamonds"]
 
-  attr_accessor :game_deck
+  attr_reader :game_deck
 
   def initialize
     @game_deck = []
