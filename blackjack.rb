@@ -64,7 +64,7 @@ class Blackjack
     end
   end
 
-  def player_display_cards
+  def player_display_all_cards
     puts "Your cards are:"
     player_cards.each do |card|
       puts "#{card.value} of #{card.suit}"
