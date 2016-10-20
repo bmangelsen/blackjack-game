@@ -36,7 +36,7 @@ class Blackjack
 
   def player_move_response
     move = gets.chomp
-    until move.match("hit|stand")
+    until move.match("^hit$|^stand$")
       puts "Sorry, try again"
       move = gets.chomp
     end
@@ -45,7 +45,7 @@ class Blackjack
 
   def player_play_response
     play = gets.chomp
-    until play.match("y|n")
+    until play.match("^y$|^n$")
       puts "Sorry, try again"
       play = gets.chomp
     end
